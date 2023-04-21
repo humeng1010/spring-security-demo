@@ -1,0 +1,8 @@
+spring:
+  security:
+    user:
+      name: root
+      password: 123
+
+  thymeleaf:
+    cache: false # 修改thymeleaf之后立即生效避免缓存带来的影响
