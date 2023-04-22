@@ -4,12 +4,41 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import java.util.HashMap;
 
 @Configuration
 public class WebSecurityConfigurer {
+
+    /**
+     * 由于内部会根据条件检查是否有UserDetailsService这个Bean,如果有则不使用默认的
+     *
+     * @return
+     */
+    @Bean
+    public UserDetailsService userDetailsService() {
+        InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
+        inMemoryUserDetailsManager.createUser(User.withUsername("aaa").password("{noop}123").roles("admin").build());
+        return inMemoryUserDetailsManager;
+    }
+
+    /**
+     * springboot 对security默认配置中 在工厂中默认创建AuthenticationManager
+     *
+     * @param builder
+     * @throws Exception
+     */
+    // @Autowired
+    // public void initialize(AuthenticationManagerBuilder builder) throws Exception {
+    //     System.out.println("springboot 默认配置:" + builder);
+    //     InMemoryUserDetailsManager userDetailsService = new InMemoryUserDetailsManager();
+    //     userDetailsService.createUser(User.withUsername("aaa").password("{noop}123").roles("admin").build());
+    //     builder.userDetailsService(userDetailsService);
+    // }
 
     /**
      * 设置请求资源拦截规则
@@ -73,7 +102,9 @@ public class WebSecurityConfigurer {
                     response.getWriter().write(s);
                 }))// 前后端分离
                 //******************************************************************
-                .and().csrf().disable()// 关闭csrf
+                // 自定义数据源的实现
+                .and().userDetailsService(userDetailsService())
+                .csrf().disable()// 关闭csrf
                 .build();
     }
 }
