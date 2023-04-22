@@ -9,3 +9,5 @@ spring:
       roles:
         - admin
         - user
+  jackson:
+    default-property-inclusion: non_null

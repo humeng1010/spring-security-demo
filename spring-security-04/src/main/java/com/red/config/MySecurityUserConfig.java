@@ -21,15 +21,21 @@ public class MySecurityUserConfig {
         manager.createUser(User.builder()
                 .username("admin")
                 .password(passwordEncoder().encode("admin"))
-                .roles("admin").build());
+                .roles("admin")   // 角色
+                .authorities("teacher:add", "teacher:delete", "student:delete", "student:add")   // 权限在角色后则权限生效
+                .build());
         manager.createUser(User.builder()
                 .username("teacher")
-                .password(passwordEncoder().encode("admin"))
-                .roles("teacher").build());
+                .password(passwordEncoder().encode("teacher"))
+                .authorities("student:delete", "student:add")
+                .roles("teacher")   // 角色在权限后则角色生效为权限:ROLE_teacher
+                .build());
         manager.createUser(User.builder()
                 .username("student")
-                .password(passwordEncoder().encode("admin"))
-                .roles("student").build());
+                .password(passwordEncoder().encode("student"))
+                // .roles("student")
+                .authorities("student:query")// 角色和权限必须配置其中一个
+                .build());
         return manager;
 
     }
