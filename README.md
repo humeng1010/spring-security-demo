@@ -8,3 +8,4 @@
 2. `spring-security-02`自定义修改默认的配置
 3. `spring-security-03`了解JWT
 4. `spring-security-04`了解基于内存配置用户信息以及权限和角色控制,掌握自定义密码加密,掌握使用SecurityContextHolder基于当前线程获取当前用户信息;熟悉基于URL进行权限控制.
+5. `spring-security-05`掌握使用注解基于方法的权限控制
