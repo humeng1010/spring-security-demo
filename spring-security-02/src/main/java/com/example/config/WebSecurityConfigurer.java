@@ -20,9 +20,11 @@ public class WebSecurityConfigurer {
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http.authorizeRequests()
+        return http
+                .authorizeRequests()
                 .mvcMatchers("/index", "/login.html").permitAll() // 放行的资源需要写在任意的前面
                 .anyRequest().authenticated()// 任何请求都需要认证
+                // **************************登陆认证****************************************
                 .and()
                 .formLogin()// 通过form表单登陆
                 .loginPage("/login.html")// 设置自己的登录页面
@@ -53,6 +55,24 @@ public class WebSecurityConfigurer {
                     response.setContentType("application/json;charset=UTF-8");
                     response.getWriter().write(s);
                 }))// 自定义认证失败处理 前后端分离解决方案
+                // ******************************************************************
+                // **********************注销登录********************************************
+                .and()
+                .logout()
+                .logoutUrl("/logout")   // 默认就是/logout 请求方式为:GET 指定注销登录的 url
+                .invalidateHttpSession(true)    // 默认 会话失效
+                .clearAuthentication(true)  // 默认 清除认证
+                // .logoutUrl("/login.html") //注销之后跳转的页面
+                .logoutSuccessHandler(((request, response, authentication) -> {
+                    HashMap<String, Object> result = new HashMap<>();
+                    result.put("message", "退出成功");
+                    result.put("authentication", authentication);
+                    result.put("status", 200);
+                    String s = new ObjectMapper().writeValueAsString(result);
+                    response.setContentType("application/json;charset=UTF-8");
+                    response.getWriter().write(s);
+                }))// 前后端分离
+                //******************************************************************
                 .and().csrf().disable()// 关闭csrf
                 .build();
     }
