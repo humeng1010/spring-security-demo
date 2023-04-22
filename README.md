@@ -6,3 +6,4 @@
 
 1. `spring-security-01`快速入门体验如何在SpringBoot中使用SpringSecurity安全框架，并介绍了SpringSecurity的过滤器
 2. `spring-security-02`自定义修改默认的配置
+3. `spring-security-03`了解JWT
