@@ -17,4 +17,12 @@
         from sys_user
         where username = #{username};
     </select>
+    
+    <select id="getRoleByUserName" resultType="string">
+        select r.rolename
+        from sys_user u
+                 join sys_role_user ru on u.user_id = ru.uid
+                 join sys_role r on ru.rid = r.id
+        where u.username = #{username};
+    </select>
 </mapper>

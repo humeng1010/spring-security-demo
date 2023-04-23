@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.red.mapper.SysMenuMapper">
+
+    <select id="queryPermissionsByUserId" resultType="string">
+        SELECT m.code
+        FROM sys_user u
+                 JOIN sys_role_user ru ON u.user_id = ru.uid
+                 JOIN sys_role r ON r.id = ru.rid
+                 JOIN sys_role_menu rm ON r.id = rm.rid
+                 JOIN sys_menu m ON m.id = rm.mid
+        WHERE u.user_id = #{userId};
+    </select>
+</mapper>

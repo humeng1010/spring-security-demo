@@ -13,4 +13,12 @@ public interface SysUserMapper {
      * @return
      */
     SysUser getUserByName(@Param("username") String username);
+
+    /**
+     * 根据用户名查询用户角色
+     *
+     * @param username
+     * @return
+     */
+    String getRoleByUserName(@Param("username") String username);
 }

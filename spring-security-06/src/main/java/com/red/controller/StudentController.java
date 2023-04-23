@@ -9,28 +9,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/teacher")
-public class TeacherController {
+@RequestMapping("/student")
+public class StudentController {
 
     @Autowired
     private TeacherService teacherService;
 
     @GetMapping("/add")
-    @PreAuthorize("hasRole('ADMIN')")// 预授权
+    @PreAuthorize("hasAuthority('student:add') or hasAuthority('/student/**')")// 预授权
     public Dict add() {
-        return teacherService.add();
+        return new Dict().set("code", 200).set("message", "新增成功");
     }
 
     @GetMapping("/update")
-    @PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
+    @PreAuthorize("hasAuthority('student:update') or hasAuthority('/student/**')")
     public Dict update() {
-        return teacherService.update();
+        return new Dict().set("code", 200).set("message", "新增成功");
     }
 
     @GetMapping("/delete")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('student:delete') or hasAuthority('/student/**')")
     public Dict delete() {
-        return teacherService.delete();
+        return new Dict().set("code", 200).set("message", "删除成功");
     }
 
     @GetMapping("/query")

@@ -2,9 +2,11 @@ package com.red.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 自定义用户
@@ -25,6 +27,12 @@ public class SecurityUser implements UserDetails {
     private Boolean credentialsNonExpired;
 
     private Boolean enabled;
+
+    private List<SimpleGrantedAuthority> userPermissions;
+
+    public void setUserPermissions(List<SimpleGrantedAuthority> userPermissions) {
+        this.userPermissions = userPermissions;
+    }
 
     public SecurityUser() {
 
@@ -48,7 +56,7 @@ public class SecurityUser implements UserDetails {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return userPermissions;
     }
 
     @Override

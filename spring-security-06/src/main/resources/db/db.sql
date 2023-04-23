@@ -129,3 +129,9 @@ FROM sys_user u
          JOIN sys_role_menu rm ON r.id = rm.rid
          JOIN sys_menu m ON m.id = rm.mid
 WHERE u.user_id = 1;
+
+select r.rolename
+from sys_user u
+         join sys_role_user ru on u.user_id = ru.uid
+         join sys_role r on ru.rid = r.id
+where u.username = 'admin';
