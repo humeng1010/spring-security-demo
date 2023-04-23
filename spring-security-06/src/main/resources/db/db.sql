@@ -119,4 +119,13 @@ where t1.user_id = t3.uid
   and t2.id = t3.rid
   and t2.id = t5.rid
   and t4.id = t5.mid
-order by user_id;
+  and t1.user_id = 4;
+
+# 优化后
+SELECT u.user_id, u.username, r.rolename, m.name AS menu_name, m.code AS menu_code
+FROM sys_user u
+         JOIN sys_role_user ru ON u.user_id = ru.uid
+         JOIN sys_role r ON r.id = ru.rid
+         JOIN sys_role_menu rm ON r.id = rm.rid
+         JOIN sys_menu m ON m.id = rm.mid
+WHERE u.user_id = 1;
