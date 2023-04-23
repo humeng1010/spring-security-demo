@@ -1,0 +1,13 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 12345678
+    url: jdbc:mysql://127.0.0.1:3306/security_study
+  # jpa
+  jpa:
+    show-sql: true # 显示sql
+    hibernate:
+      ddl-auto: update # 自动更新
