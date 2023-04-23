@@ -1,7 +1,9 @@
 package com.red.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.red.entity.SecurityUser;
+import com.red.entity.SysUser;
+import com.red.mapper.SysUserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,16 +11,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+    @Autowired
+    private SysUserMapper sysUserMapper;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (StrUtil.isBlank(username)) {
-            throw new UsernameNotFoundException("用户名不存在");
-        }
-        if (!username.equals("zhangsan")) {
-            throw new UsernameNotFoundException("用户名不存在");
+        SysUser user = sysUserMapper.getUserByName(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("用户不存在");
         }
 
-        SecurityUser securityUser = new SecurityUser();
+        SecurityUser securityUser = new SecurityUser(user);
 
         return securityUser;
     }

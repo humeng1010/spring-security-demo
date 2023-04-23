@@ -47,3 +47,76 @@ insert into sys_role_user (uid, rid)
 values (1, 1),
        (2, 2),
        (3, 3);
+
+create table sys_menu
+(
+    id      bigint primary key auto_increment,
+    pid     bigint       not null,
+    name    varchar(256) not null,
+    code    varchar(256) not null,
+    type    int          not null,
+    deleted int default 0
+);
+
+insert into sys_menu (pid, name, code, type)
+values (0, '学生管理', '/student/**', 0),
+       (1, '学生查询', 'student:query', 1),
+       (1, '学生添加', 'student:add', 1),
+       (1, '学生修改', 'student:update', 1),
+       (1, '学生删除', 'student:delete', 1),
+       (1, '导出学生信息', 'student:export', 1),
+       (0, '教师管理', '/teacher/**', 0),
+       (7, '教师查询', 'teacher:query', 1);
+
+
+create table sys_role_menu
+(
+    rid bigint not null,
+    mid bigint not null
+);
+
+insert into sys_role_menu (rid, mid)
+values (1, 1),
+       (3, 1),
+       (2, 2),
+       (3, 2),
+       (1, 3),
+       (2, 3),
+       (1, 4),
+       (2, 4),
+       (1, 5),
+       (2, 5),
+       (3, 6),
+       (1, 9),
+       (2, 9),
+       (3, 9),
+       (1, 10),
+       (1, 17);
+
+
+select *
+from sys_user;
+
+select *
+from sys_role;
+
+select *
+from sys_role_user;
+
+select *
+from sys_menu;
+
+select *
+from sys_role_menu;
+
+select t1.user_id, t1.username, t2.rolename, t4.name, t4.code
+from sys_user t1,
+     sys_role t2,
+     sys_role_user t3,
+     sys_menu t4,
+     sys_role_menu t5
+where t1.user_id = t3.uid
+  and t2.id = t3.rid
+  and t2.id = t5.rid
+  and t4.id = t5.mid
+order by user_id;

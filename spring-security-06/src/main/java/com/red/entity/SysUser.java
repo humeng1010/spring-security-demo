@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Builder
 public class SysUser implements Serializable {
-    private Integer userId;
+    private Long userId;
     private String username;
     private String password;
     private String sex;

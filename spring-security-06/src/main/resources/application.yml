@@ -7,6 +7,8 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/security_study
     username: root
     password: 12345678
+  jackson:
+    default-property-inclusion: non_null
 
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
