@@ -11,3 +11,4 @@
 5. `spring-security-05`掌握使用注解基于方法的权限控制,掌握认证成功或失败返回JSON数据
 6. `spring-security-06`了解自定义用户信息,熟悉基于MySQL数据库的用户认证和授权
 7. `spring-security-07`熟悉JWT
+8. `spring-security-08`了解JPA的基本使用
