@@ -12,3 +12,4 @@
 6. `spring-security-06`了解自定义用户信息,熟悉基于MySQL数据库的用户认证和授权
 7. `spring-security-07`熟悉JWT
 8. `spring-security-08`了解JPA基本使用
+9. `spring-security-09`综合项目,前后端分离
