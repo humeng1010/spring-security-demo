@@ -27,11 +27,11 @@
 </template>
 
 <script>
+import { login } from "@/api/index.js";
 export default {
   name: "Login",
   data() {
     return {
-      url: "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
       labelPosition: "right",
       formLabelAlign: {
         username: "",
@@ -40,8 +40,10 @@ export default {
     };
   },
   methods: {
-    submitForm() {
+    async submitForm() {
       console.log(this.formLabelAlign);
+      const res = await login(this.formLabelAlign);
+      console.log(res);
     },
   },
 };

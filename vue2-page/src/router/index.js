@@ -10,7 +10,10 @@ const router = new VueRouter({
         },
         {
             path: "/home",
-            component: Home
+            component: Home,
+            meta: {
+                auth: true
+            }
         },
         {
             path: "/login",
@@ -22,6 +25,20 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     console.log(to, from, next)
+    if (to.meta.auth) {
+        // 认证过的，在本地有token
+        const token = localStorage.getItem("token")
+        if (token) {
+            // 验证token
+            console.log("验证token")
+            // if 验证成功
+            next()
+        }
+        // 如果需要认证授权
+        console.log('未登录需要登陆认证授权')
+        next({ path: "/login" })
+        return
+    }
     next()
 })
 
