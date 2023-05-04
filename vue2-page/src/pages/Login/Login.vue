@@ -19,23 +19,6 @@
           autocomplete="off"
         ></el-input>
       </el-form-item>
-      <el-form-item label="验证码" class="verification">
-        <el-row type="flex" align="middle" justify="space-around">
-          <el-col :span="11">
-            <el-input
-              v-model="formLabelAlign.verification"
-              autocomplete="off"
-            ></el-input>
-          </el-col>
-          <el-col :span="11" :offset="2">
-            <el-image
-              style="width: 120px; height: 60px"
-              :src="url"
-              fit="fill"
-            ></el-image>
-          </el-col>
-        </el-row>
-      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm">提交</el-button>
       </el-form-item>
@@ -53,7 +36,6 @@ export default {
       formLabelAlign: {
         username: "",
         password: "",
-        verification: "",
       },
     };
   },
@@ -67,16 +49,8 @@ export default {
 
 <style lang="less" scoped>
 .login {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin: 0 auto;
-
   max-width: 800px;
   min-width: 300px;
-  .verification {
-    display: flex;
-    align-items: center;
-  }
 }
 </style>
