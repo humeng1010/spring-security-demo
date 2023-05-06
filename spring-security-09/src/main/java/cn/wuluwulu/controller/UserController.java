@@ -1,28 +1,20 @@
 package cn.wuluwulu.controller;
 
-import cn.wuluwulu.entity.User;
+import cn.wuluwulu.utils.Result;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin
+// @CrossOrigin
 @Slf4j
 public class UserController {
 
-    @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody User user, @RequestHeader String auth) {
-        log.info("登陆的用户名:{},密码:{}", user.getUsername(), user.getPassword());
-        log.info("token:{}", auth);
-
-        HashMap<String, Object> res = new HashMap<>();
-        res.put("success", 200);
-        res.put("data", user);
-        res.put("message", "登录成功");
-        return res;
-
+    @GetMapping
+    // @PreAuthorize("isAuthenticated()")
+    public Result<String> getAllUser() {
+        return Result.ok("查询用户成功", null);
     }
 }

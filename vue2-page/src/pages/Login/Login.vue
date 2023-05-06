@@ -28,6 +28,7 @@
 
 <script>
 import { login } from "@/api/index.js";
+import axios from "axios";
 export default {
   name: "Login",
   data() {
@@ -42,7 +43,13 @@ export default {
   methods: {
     async submitForm() {
       console.log(this.formLabelAlign);
-      const res = await login(this.formLabelAlign);
+      // application/x-www-form-urlencoded
+      const res = await axios({
+        url: "/api/login",
+        method: "POST",
+        data: this.formLabelAlign,
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      });
       console.log(res);
     },
   },
