@@ -23,6 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // http.authorizeRequests().anyRequest().authenticated();
 
         http.formLogin()
+                .loginProcessingUrl("/login")
                 .successHandler(((request, response, authentication) -> {
                     Dict dict = new Dict();
                     dict.set("code", 200).set("message", "登录成功!");
