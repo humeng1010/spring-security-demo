@@ -37,25 +37,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     response.setContentType("application/json;charset=UTF-8");
                     response.getWriter().write(s);
                 });
+
         // 配置退出处理器
         http.logout().logoutSuccessHandler(((httpServletRequest, httpServletResponse, authentication) -> {
             Dict dict = new Dict();
             dict.set("code", 200).set("message", "注销成功!");
-
             ObjectMapper objectMapper = new ObjectMapper();
             String s = objectMapper.writeValueAsString(dict);
-
             httpServletResponse.setContentType("application/json;charset=UTF-8");
             httpServletResponse.getWriter().write(s);
         }));
+
         // 配置访问拒绝处理器
         http.exceptionHandling().accessDeniedHandler(((httpServletRequest, httpServletResponse, e) -> {
             Dict dict = new Dict();
             dict.set("code", 403).set("message", "你没有权限");
-
             ObjectMapper objectMapper = new ObjectMapper();
             String s = objectMapper.writeValueAsString(dict);
-
             httpServletResponse.setContentType("application/json;charset=UTF-8");
             httpServletResponse.setStatus(403);
             httpServletResponse.getWriter().write(s);
